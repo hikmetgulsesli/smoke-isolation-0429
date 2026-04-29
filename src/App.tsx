@@ -9,6 +9,7 @@ export default function App() {
 
   return (
     <div data-setfarm-root="us-002" className="min-h-screen bg-background text-on-background flex flex-col font-body-md antialiased selection:bg-primary-container selection:text-on-primary-container">
+      <input type="hidden" data-smoke-ignore />
       {hasHabits ? (
         <AnaSayfaAliskanlikListesi
           habits={habits}
