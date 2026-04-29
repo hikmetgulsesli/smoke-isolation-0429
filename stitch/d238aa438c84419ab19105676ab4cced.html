@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+
+<html lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Alışkanlık Takip - Boş Durum</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary": "#00685f",
+                    "on-tertiary": "#ffffff",
+                    "primary-container": "#008378",
+                    "secondary-fixed-dim": "#9ad1cb",
+                    "secondary": "#316763",
+                    "surface-container-high": "#e4e9e7",
+                    "on-tertiary-container": "#fffbff",
+                    "inverse-primary": "#6bd8cb",
+                    "on-secondary-container": "#376d69",
+                    "surface": "#f5faf8",
+                    "on-primary-fixed-variant": "#005049",
+                    "outline": "#6d7a77",
+                    "inverse-on-surface": "#edf2f0",
+                    "surface-variant": "#dee4e1",
+                    "tertiary-fixed-dim": "#ffb59a",
+                    "on-primary-fixed": "#00201d",
+                    "on-primary": "#ffffff",
+                    "surface-container": "#eaefed",
+                    "on-surface-variant": "#3d4947",
+                    "on-error-container": "#93000a",
+                    "surface-dim": "#d6dbd9",
+                    "on-secondary-fixed": "#00201e",
+                    "tertiary-container": "#b05e3d",
+                    "surface-container-highest": "#dee4e1",
+                    "surface-container-lowest": "#ffffff",
+                    "background": "#f5faf8",
+                    "on-surface": "#171d1c",
+                    "secondary-fixed": "#b5ede7",
+                    "on-tertiary-fixed-variant": "#773215",
+                    "surface-container-low": "#f0f5f2",
+                    "tertiary": "#924628",
+                    "on-secondary-fixed-variant": "#144f4b",
+                    "surface-tint": "#006a61",
+                    "primary-fixed-dim": "#6bd8cb",
+                    "on-primary-container": "#f4fffc",
+                    "tertiary-fixed": "#ffdbce",
+                    "secondary-container": "#b5ede7",
+                    "surface-bright": "#f5faf8",
+                    "error": "#ba1a1a",
+                    "on-tertiary-fixed": "#370e00",
+                    "on-background": "#171d1c",
+                    "inverse-surface": "#2c3130",
+                    "error-container": "#ffdad6",
+                    "on-secondary": "#ffffff",
+                    "outline-variant": "#bcc9c6",
+                    "primary-fixed": "#89f5e7",
+                    "on-error": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "16px",
+                    "base": "8px",
+                    "sm": "8px",
+                    "container-margin": "24px",
+                    "lg": "24px",
+                    "2xl": "48px",
+                    "xl": "32px",
+                    "3xl": "64px",
+                    "xs": "4px",
+                    "md": "16px"
+            },
+            "fontFamily": {
+                    "h3": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "body-md": ["Inter"],
+                    "h2": ["Inter"],
+                    "h1": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "label-md": ["Inter"]
+            },
+            "fontSize": {
+                    "h3": ["20px", {"lineHeight": "1.4", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "label-sm": ["12px", {"lineHeight": "1", "letterSpacing": "0.04em", "fontWeight": "500"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "1.5", "letterSpacing": "0", "fontWeight": "400"}],
+                    "h2": ["24px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "h1": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-sm": ["14px", {"lineHeight": "1.5", "letterSpacing": "0", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "1", "letterSpacing": "0.02em", "fontWeight": "500"}]
+            }
+          }
+        }
+      }
+    </script>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col font-body-md antialiased selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopAppBar -->
+<header class="bg-teal-50/80 dark:bg-slate-950/80 backdrop-blur-md text-teal-600 dark:text-teal-400 font-inter antialiased docked full-width top-0 sticky border-b border-teal-100 dark:border-slate-800 flat no shadows z-40 transition-colors active:scale-95 duration-200">
+<div class="flex justify-between items-center w-full px-6 py-4 max-w-2xl mx-auto">
+<h1 class="text-xl font-bold tracking-tight text-teal-900 dark:text-teal-50">Alışkanlık Takip</h1>
+<div class="flex items-center space-x-4">
+<button aria-label="Account" class="p-2 rounded-full hover:bg-teal-100/50 dark:hover:bg-slate-800 transition-colors text-slate-500 dark:text-slate-400">
+<span class="material-symbols-outlined" data-icon="account_circle" style="font-variation-settings: 'FILL' 0;">account_circle</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 w-full max-w-2xl mx-auto px-container-margin py-xl flex flex-col gap-2xl relative pb-3xl">
+<!-- Input Section -->
+<section class="w-full">
+<div class="relative bg-surface-container-lowest rounded-xl shadow-[0_4px_12px_rgba(0,104,95,0.03)] border border-surface-variant p-1">
+<div class="flex items-center">
+<span class="material-symbols-outlined text-outline pl-md" data-icon="add" style="font-variation-settings: 'FILL' 0;">add</span>
+<input aria-label="Yeni alışkanlık ekle" class="w-full bg-transparent border-none text-body-md font-body-md text-on-surface placeholder:text-outline-variant focus:ring-0 px-md py-sm h-12" placeholder="Yeni bir alışkanlık ekle..." type="text"/>
+<button class="bg-primary text-on-primary hover:bg-primary-container hover:text-on-primary-container transition-colors rounded-lg px-lg py-sm mr-1 font-label-md text-label-md h-10 flex items-center justify-center">
+                        Ekle
+                    </button>
+</div>
+</div>
+</section>
+<!-- Empty State Content Area -->
+<section class="flex-1 flex flex-col items-center justify-center text-center py-3xl px-lg">
+<div class="mb-xl relative">
+<!-- Decorative background blob -->
+<div class="absolute inset-0 bg-primary-fixed-dim/20 rounded-full blur-2xl transform scale-150"></div>
+<div class="w-32 h-32 bg-surface-container-low rounded-full flex items-center justify-center relative z-10 border border-surface-variant shadow-[0_8px_24px_rgba(0,104,95,0.05)]">
+<span class="material-symbols-outlined text-[64px] text-primary-container/60" data-icon="self_improvement" style="font-variation-settings: 'FILL' 0;">self_improvement</span>
+</div>
+<!-- Floating ambient elements -->
+<div class="absolute -top-4 -right-4 w-8 h-8 bg-secondary-fixed-dim/30 rounded-full blur-sm"></div>
+<div class="absolute -bottom-2 -left-6 w-12 h-12 bg-tertiary-fixed-dim/20 rounded-full blur-md"></div>
+</div>
+<h2 class="font-h2 text-h2 text-on-surface mb-sm">Henüz bir alışkanlık eklemediniz</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-sm mx-auto opacity-80 leading-relaxed">
+                Yukarıdaki alana yazarak ilk alışkanlığınızı ekleyebilirsiniz.
+            </p>
+<div class="mt-2xl flex flex-col gap-md items-center">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Popüler Başlangıçlar</span>
+<div class="flex flex-wrap justify-center gap-sm">
+<button class="bg-surface-container hover:bg-surface-container-high transition-colors text-on-surface-variant px-md py-sm rounded-full font-body-sm text-body-sm border border-surface-variant/50 flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]" data-icon="water_drop">water_drop</span> Su İç
+                    </button>
+<button class="bg-surface-container hover:bg-surface-container-high transition-colors text-on-surface-variant px-md py-sm rounded-full font-body-sm text-body-sm border border-surface-variant/50 flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]" data-icon="menu_book">menu_book</span> Kitap Oku
+                    </button>
+<button class="bg-surface-container hover:bg-surface-container-high transition-colors text-on-surface-variant px-md py-sm rounded-full font-body-sm text-body-sm border border-surface-variant/50 flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]" data-icon="directions_walk">directions_walk</span> Yürüyüş Yap
+                    </button>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="bg-white/90 dark:bg-slate-900/90 backdrop-blur-lg fixed bottom-0 w-full z-50 border-t border-slate-100 dark:border-slate-800 shadow-[0_-4px_6px_-1px_rgba(13,148,136,0.05)] md:hidden">
+<div class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 py-3 pb-safe">
+<a aria-label="Bugün - Aktif" class="flex flex-col items-center justify-center text-teal-600 dark:text-teal-400 bg-teal-50/50 dark:bg-teal-900/20 rounded-xl px-4 py-1 tap-highlight-transparent active:opacity-70 group" href="#">
+<span class="material-symbols-outlined text-[24px] mb-1 group-hover:text-teal-500 transition-all" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="text-[11px] font-medium font-inter group-hover:text-teal-500 transition-all">Bugün</span>
+</a>
+<a aria-label="İstatistik" class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-4 py-1 hover:text-teal-500 transition-all tap-highlight-transparent active:opacity-70 group" href="#">
+<span class="material-symbols-outlined text-[24px] mb-1 group-hover:text-teal-500 transition-all" data-icon="insights" style="font-variation-settings: 'FILL' 0;">insights</span>
+<span class="text-[11px] font-medium font-inter group-hover:text-teal-500 transition-all">İstatistik</span>
+</a>
+<a aria-label="Ayarlar" class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-4 py-1 hover:text-teal-500 transition-all tap-highlight-transparent active:opacity-70 group" href="#">
+<span class="material-symbols-outlined text-[24px] mb-1 group-hover:text-teal-500 transition-all" data-icon="settings" style="font-variation-settings: 'FILL' 0;">settings</span>
+<span class="text-[11px] font-medium font-inter group-hover:text-teal-500 transition-all">Ayarlar</span>
+</a>
+</div>
+</nav>
+<!-- Spacer for Bottom Nav on Mobile -->
+<div class="h-[80px] md:hidden w-full bg-transparent"></div>
+</body></html>

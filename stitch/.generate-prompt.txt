@@ -1,0 +1,234 @@
+# PRD: Alışkanlık Takip — Günlük Alışkanlık Takip Uygulaması
+
+## 1. Genel Bakış
+
+**Proje Adı:** Alışkanlık Takip
+**Proje Slug:** smoke-isolation-0429
+**Platform:** Web (SPA)
+**Tech Stack:** React 18 + Vite + TypeScript + Tailwind CSS
+**Dil:** Türkçe (tüm UI içeriği ve kullanıcı mesajları)
+**Veritabanı:** Yok (tamamen istemci tarafında localStorage ile kalıcılık sağlanır)
+
+Alışkanlık Takip, kullanıcıların günlük alışkanlıklarını kolayca ekleyip takip edebileceği minimal ve hızlı bir web uygulamasıdır. Kullanıcı bir alışkanlık adı girer, uygulama bunu listeler; kullanıcı tamamladığında işaretler, istemediğinde siler. Tüm veriler tarayıcıda localStorage'da saklanır, sayfa yenilense bile kaybolmaz. Uygulama mobil ve masaüstü cihazlarda sorunsuz çalışır. Hedef kitle: günlük rutinlerini dijital ortamda takip etmek isteyen bireyler.
+
+## 2. Hedefler
+
+- Kullanıcının 3 saniye içinde ilk alışkanlığını ekleyebileceği kadar basit ve anlaşılır arayüz sunmak
+- Alışkanlık ekleme, tamamlama ve silme işlemlerinin tek tıklamayla yapılabilmesi
+- Sayfa yenilendiğinde verilerin kaybolmaması için localStorage kalıcılığı sağlamak
+- Boş liste durumunda kullanıcıyı yönlendiren açık mesajlar göstermek
+- Beklenmedik hatalarda (örneğin localStorage dolması, bozuk veri) kullanıcıya anlamlı Türkçe hata mesajları vermek
+- Erişilebilir tasarım ile klavye navigasyonu ve ekran okuyucu uyumluluğu sağlamak
+- İlk yükleme süresini 2 saniyenin altında tutarak hızlı deneyim sunmak
+
+## 3. Tech Stack Detayı
+
+- **Framework:** React 18 (Hooks: useState, useEffect, useCallback)
+- **Build Tool:** Vite 5+ (HMR, hızlı geliştirme, optimize edilmiş üretim derlemesi)
+- **Dil:** TypeScript 5+ (strik mod, kesin tipler, derleme güvenliği)
+- **Styling:** Tailwind CSS 3.4+ (utility-first, responsive, custom config ile tema)
+- **State Management:** React useState/useReducer (basit CRUD işlemleri, harici kütüphane gereksinimi yok)
+- **Storage:** localStorage (JSON serileştirme, alışkanlık listesi kalıcılığı)
+- **Icons:** Lucide React (tüm ikonlar vektörel, erişilebilir, emoji kullanılmaz)
+- **Lint/Format:** ESLint + Prettier (kod kalitesi ve tutarlılık)
+
+## 4. Fonksiyonel Gereksinimler
+
+### 4.1 Alışkanlık Ekleme
+- Kullanıcı metin giriş alanına alışkanlık adı yazar (örn: "Su İç", "Kitap Oku")
+- "Ekle" butonuna tıklayarak veya Enter tuşuna basarak alışkanlığı ekler
+- Max uzunluk: 100 karakter
+- Boş string veya sadece boşluk içeren giriş engellenir, kullanıcıya "Lütfen geçerli bir alışkanlık adı girin" mesajı gösterilir
+- Yeni alışkanlık listenin en üstüne eklenir, varsayılan olarak tamamlanmamış durumdadır
+- Her alışkanlık otomatik olarak benzersiz bir ID (crypto.randomUUID veya Date.now + rastgele string) alır
+- Oluşturulma tarihi (ISO string) kaydedilir
+
+### 4.2 Tamamlama İşaretleme
+- Her alışkanlık kartında daire şeklinde bir checkbox/check ikonu bulunur
+- Kullanıcı tıkladığında alışkanlık "tamamlandı" olarak işaretlenir
+- Tamamlanan alışkanlık görsel olarak farklılaşır: üstü çizili metin, soluk renk, check ikonu dolu hale gelir
+- Aynı butona tekrar tıklanarak tamamlama geri alınabilir (toggle davranışı)
+- Tamamlama durumu ve son değiştirme tarihi localStorage'da güncellenir
+
+### 4.3 Alışkanlık Silme
+- Her alışkanlık kartının sağ tarafında çöp kutusu (trash) ikonu bulunur
+- İkona tıklandığında alışkanlık animasyonlu bir şekilde listeden kaldırılır
+- Silme işlemi onay gerektirmez (küçük uygulama, hızlı etkileşim); ancak silinen veri geri alınamaz
+- Liste boşaldığında otomatik olarak boş durum ekranı gösterilir
+
+### 4.4 localStorage Kalıcılığı
+- Uygulama mount olduğunda localStorage'dan `habit-tracker-data` anahtarı ile kaydedilmiş veri okunur
+- Veri yapısı: `{ habits: Habit[], version: number }`
+- Her ekleme, tamamlama ve silme işleminden sonra state localStorage'a yazılır (debounce 300ms ile performans için)
+- localStorage okunamazsa veya bozuksa, uygulama boş liste ile başlar ve hatayı console'a yazar
+- localStorage yazma başarısız olursa (örn: quota exceeded), kullanıcıya "Veriler kaydedilemedi. Lütfen yer açın." hata mesajı gösterilir
+
+### 4.5 Boş Durum (Empty State)
+- Hiç alışkanlık yoksa ana ekranda merkezi bir boş durum bileşeni gösterilir
+- İçerik: büyük bilgi/info ikonu, "Henüz bir alışkanlık eklemediniz" başlık, "Yukarıdaki alana yazarak ilk alışkanlığınızı ekleyebilirsiniz." açıklama metni
+- Görsel olarak soluk tonlarda, sayfa düzenini bozmayacak şekilde yerleştirilir
+
+### 4.6 Hata Durumu
+- localStorage okuma/yazma hatası: kullanıcıya inline toast/banner şeklinde "Verileriniz yüklenemedi. Lütfen sayfayı yenileyin." mesajı
+- Alışkanlık adı validasyon hatası: giriş alanı altında kırmızı metin ile anlık geri bildirim
+- Beklenmedik runtime hatası: hata sınırı (Error Boundary) ile kullanıcıya "Bir sorun oluştu. Sayfayı yenileyin." mesajı
+
+## 5. Veri Modeli
+
+### 5.1 TypeScript Tipleri
+
+```typescript
+interface Habit {
+  id: string;              // Benzersiz tanımlayıcı
+  title: string;           // Alışkanlık adı
+  completed: boolean;      // Tamamlanma durumu
+  createdAt: string;       // ISO 8601 tarih stringi
+  updatedAt: string;       // ISO 8601 tarih stringi
+}
+
+interface AppStorage {
+  version: number;         // Veri şema versiyonu (şu an: 1)
+  habits: Habit[];
+}
+```
+
+### 5.2 localStorage Şeması
+
+- Anahtar: `habit-tracker-data`
+- Değer: JSON string olarak serileştirilmiş `AppStorage` nesnesi
+- Migrasyon: Gelecekte şema değişirse `version` alanı kontrol edilerek migrasyon hook çalıştırılır
+
+## 6. UI/UX Gereksinimleri
+
+### 6.1 Design System Seçimi
+
+- **Aesthetic:** minimal — temiz, fonksiyonel, gereksiz süsleme yok
+- **Renk Paleti:**
+  - Primary: #0D9488 (teal-600)
+  - Secondary: #134E4A (teal-900)
+  - Background: #F0FDFA (teal-50)
+  - Surface: #FFFFFF (beyaz — kartlar, inputlar)
+  - Text: #0F172A (slate-900)
+  - Text Muted: #64748B (slate-500)
+  - Border: #CBD5E1 (slate-300)
+  - Success: #10B981 (emerald-500 — tamamlanma durumu)
+  - Error: #EF4444 (red-500 — hata mesajları)
+- **Tipografi:**
+  - Heading font: Inter (font-weight 700)
+  - Body font: Inter (font-weight 400, 500)
+  - Font Pair: Inter + Inter (tek aile, farklı ağırlıklar)
+  - Başlık boyutu: 28-32px
+  - Gövde metni: 16px
+  - Kart başlığı: 18px
+  - Buton metni: 14px, font-weight 500
+- **Icon Library:** Lucide React (tüm ikonlar)
+
+### 6.2 Spacing & Components
+
+- **Spacing Scale:** 4px, 8px, 12px, 16px, 24px, 32px, 48px
+- **Border Radius:**
+  - Inputlar: 8px
+  - Butonlar: 8px
+  - Kartlar: 12px
+  - Sayfa konteyner: 16px
+- **Shadowlar:**
+  - Kartlar: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06)
+  - Hover durumunda: 0 4px 6px rgba(0,0,0,0.1)
+- **Buton Pattern:**
+  - Primary: teal-600 arka plan, beyaz metin, hover teal-700
+  - Icon butonlar: slate-200 arka plan, hover slate-300, 40x40 px minimum touch hedefi
+- **Kart Pattern:**
+  - Beyaz arka plan, 12px border-radius, yatay padding 16px, dikey padding 12px
+  - Tamamlanan kart: soluk kenarlık, üstü çizili metin
+- **Input Pattern:**
+  - Tam genişlik, 12px padding, 8px border-radius, slate-300 border
+  - Focus: teal-500 border, teal-100 outline
+
+### 6.3 Animasyonlar
+
+- Kart ekleme: fade-in + slide-down (200ms, ease-out)
+- Kart silme: fade-out + slide-right (200ms, ease-in)
+- Tamamlama toggle: yumuşak renk geçişi (150ms)
+- Boş durum geçişi: fade-in (300ms)
+
+## 7. Non-Functional Requirements
+
+### 7.1 Performans
+- İlk yükleme süresi: < 1.5 saniye (Vite + minimal bundle)
+- localStorage okuma/yazma: senkron, < 10ms
+- Kart animasyonları: 60 FPS, CSS transitions kullanılarak GPU hızlandırma
+- Bundle boyutu hedefi: < 100 KB (gzipped)
+
+### 7.2 Erişilebilirlik (WCAG 2.1 AA)
+- Klavye navigasyonu: tüm butonlar ve inputlar Tab ile erişilebilir, Enter/Space ile aktive edilebilir
+- ARIA labels: sil butonu "Sil", tamamlama butonu "Tamamlandı olarak işaretle", input "Yeni alışkanlık"
+- Screen reader: kartlar listbox/option pattern ile okunur, tamamlanan durum aria-checked ile bildirilir
+- Kontrast oranı: metin >= 4.5:1, büyük metin >= 3:1
+- Focus state: tüm interaktif elementlerde 2px solid teal-500 outline
+- Touch hedefleri: tüm butonlar minimum 44x44 px
+
+### 7.3 Tarayıcı Desteği
+- Chrome 90+, Firefox 88+, Safari 14+, Edge 90+
+- iOS Safari 14+, Android Chrome 90+
+- Responsive tasarım: mobile 320px+ → tablet 768px+ → desktop 1024px+
+- Maksimum içerik genişliği: 640px (orta hizalı container)
+
+## 8. Proje Yapısı
+
+```
+src/
+├── components/
+│   ├── HabitInput.tsx        # Alışkanlık ekleme inputu + buton
+│   ├── HabitCard.tsx           # Tek alışkanlık kartı (tamamla + sil)
+│   ├── HabitList.tsx           # Alışkanlık listesi (map + empty state)
+│   ├── EmptyState.tsx          # Boş durum bileşeni
+│   ├── ErrorBanner.tsx         # Hata mesajı banner'ı
+│   └── Header.tsx              # Sayfa başlığı
+├── screens/
+│   └── AnaSayfa.tsx            # Ana ekran — tüm bileşenleri birleştirir
+├── hooks/
+│   └── useHabits.ts            # Alışkanlık state + localStorage yönetimi
+├── types/
+│   └── habit.ts                # Habit ve AppStorage tipleri
+├── utils/
+│   ├── storage.ts              # localStorage okuma/yazma + migrasyon
+│   └── validation.ts           # Alışkanlık adı validasyonu
+├── App.tsx
+├── main.tsx
+└── index.css
+```
+
+## 9. Window State (testing/dogfood için)
+
+```javascript
+window.app = {
+  state: 'idle' | 'loading' | 'error',
+  habitCount: number,
+  completedCount: number,
+  storageKey: 'habit-tracker-data'
+}
+```
+
+- `state`: Uygulama durumu (`idle` — normal, `loading` — localStorage okunuyor, `error` — depolama hatası)
+- `habitCount`: Toplam alışkanlık sayısı
+- `completedCount`: Tamamlanmış alışkanlık sayısı
+- Test ve manuel doğrulama için global erişim sağlanır
+
+## 10. Ekranlar
+
+| # | Ekran Adı | Tür | Açıklama |
+|---|-----------|-----|----------|
+| 1 | Ana Sayfa | dashboard | Alışkanlık ekleme inputu, mevcut alışkanlık listesi, boş durum |
+| 2 | Boş Durum | empty | Henüz alışkanlık yokken gösterilen yönlendirme ekranı |
+| 3 | Hata Durumu | error | localStorage veya runtime hatası durumunda gösterilen banner/hata mesajı |
+
+Generate a SEPARATE screen design for EVERY page, view, modal, dialog, tab panel, and settings screen described in this PRD. Do NOT skip ANY screen — even if it seems minor.
+
+MANDATORY SCREENS:
+- If the PRD mentions "settings" or "ayarlar" → generate a Settings screen
+- If the PRD mentions tabs or bottom navigation → generate EACH tab view as a separate screen
+- If the PRD mentions modals (statistics, help, share, confirmation) → generate each as a separate screen
+- If the PRD mentions error states, empty states, loading states → generate those too
+- Generate at least as many screens as there are distinct views/pages/modals in the PRD
+
+All visible text must be in Turkish. Use a dark, modern theme.
