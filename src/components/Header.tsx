@@ -13,8 +13,7 @@ export function Header({ title = 'Alışkanlık Takip' }: HeaderProps) {
           aria-label="Hesap"
           type="button"
           className="text-primary hover:bg-surface-container-low-50 transition-colors active:scale-95 duration-200 p-2 rounded-full flex items-center justify-center cursor-pointer"
-          data-smoke-ignore
-          disabled
+          data-smoke-ignore disabled
         >
           <span
             className="material-symbols-outlined"

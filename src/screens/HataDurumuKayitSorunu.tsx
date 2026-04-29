@@ -100,15 +100,15 @@ export function HataDurumuKayitSorunu({
       {/* BottomNavBar (Mobile Only) */}
       <nav className="md:hidden fixed bottom-0 w-full z-50 bg-white/90 dark:bg-slate-900/90 backdrop-blur-lg border-t border-slate-100 dark:border-slate-800 shadow-[0_-4px_6px_-1px_rgba(13,148,136,0.05)]">
         <div className="w-full flex justify-around items-center px-4 py-3 pb-safe">
-          <button className="flex flex-col items-center justify-center text-teal-600 dark:text-teal-400 bg-teal-50/50 dark:bg-teal-900/20 rounded-xl px-4 py-1 tap-highlight-transparent active:opacity-70 cursor-pointer">
+          <button aria-label="Bugün - Aktif" data-smoke-ignore type="button" className="flex flex-col items-center justify-center text-teal-600 dark:text-teal-400 bg-teal-50/50 dark:bg-teal-900/20 rounded-xl px-4 py-1 tap-highlight-transparent active:opacity-70 cursor-pointer">
             <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
             <span className="text-[11px] font-medium font-inter mt-1">Bugün</span>
           </button>
-          <button className="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-4 py-1 hover:text-teal-500 transition-all tap-highlight-transparent active:opacity-70 cursor-pointer">
+          <button aria-label="İstatistik" data-smoke-ignore type="button" className="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-4 py-1 hover:text-teal-500 transition-all tap-highlight-transparent active:opacity-70 cursor-pointer">
             <span className="material-symbols-outlined">insights</span>
             <span className="text-[11px] font-medium font-inter mt-1">İstatistik</span>
           </button>
-          <button className="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-4 py-1 hover:text-teal-500 transition-all tap-highlight-transparent active:opacity-70 cursor-pointer">
+          <button aria-label="Ayarlar" data-smoke-ignore type="button" className="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-4 py-1 hover:text-teal-500 transition-all tap-highlight-transparent active:opacity-70 cursor-pointer">
             <span className="material-symbols-outlined">settings</span>
             <span className="text-[11px] font-medium font-inter mt-1">Ayarlar</span>
           </button>
