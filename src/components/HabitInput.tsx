@@ -1,4 +1,5 @@
 import { useState, useCallback, KeyboardEvent } from 'react';
+import { ErrorBanner } from './ErrorBanner';
 
 interface HabitInputProps {
   onAdd: (name: string) => boolean;
@@ -111,9 +112,9 @@ export function HabitInput({
         </div>
       </div>
       {error && (
-        <p className="mt-sm text-error text-body-sm font-body-sm px-md" role="alert">
-          {error}
-        </p>
+        <div className="mt-sm">
+          <ErrorBanner message={error} onClose={onClearError} />
+        </div>
       )}
       {quickAddOptions && quickAddOptions.length > 0 && (
         <div className="mt-lg flex flex-col gap-md items-center">
