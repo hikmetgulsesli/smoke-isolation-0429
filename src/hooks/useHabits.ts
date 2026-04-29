@@ -23,12 +23,14 @@ function generateId(): string {
 export function useHabits(): UseHabitsReturn {
   const [habits, setHabits] = useState<Habit[]>([]);
   const [error, setError] = useState<string | null>(null);
-  const debouncedWriterRef = useRef<ReturnType<typeof createDebouncedWriter> | null>(null);
-  if (!debouncedWriterRef.current) {
-    debouncedWriterRef.current = createDebouncedWriter(300, (message) => {
-    setError(message);
-    });
-  }
+  const errorRef = useRef(setError);
+  errorRef.current = setError;
+
+  const debouncedWriterRef = useRef(
+    createDebouncedWriter(300, (message) => {
+      errorRef.current(message);
+    })
+  );
 
   // Load from localStorage on mount
   useEffect(() => {
@@ -44,7 +46,7 @@ export function useHabits(): UseHabitsReturn {
       version: 1,
       habits,
     };
-    debouncedWriterRef.current!(payload);
+    debouncedWriterRef.current(payload);
   }, [habits]);
 
   const addHabit = useCallback((name: string): boolean => {
