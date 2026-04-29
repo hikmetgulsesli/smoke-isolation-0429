@@ -26,7 +26,7 @@ export function BosDurumYeniBaslayanlarIcin({ onAddHabit, error, onClearError }:
       <div className="flex justify-between items-center w-full px-6 py-4 max-w-2xl mx-auto">
       <h1 className="text-xl font-bold tracking-tight text-teal-900 dark:text-teal-50">Alışkanlık Takip</h1>
       <div className="flex items-center space-x-4">
-      <button aria-label="Hesap" className="p-2 rounded-full hover:bg-teal-100/50 dark:hover:bg-slate-800 transition-colors text-slate-500 dark:text-slate-400 cursor-pointer">
+      <button aria-label="Hesap" className="p-2 rounded-full hover:bg-teal-100/50 dark:hover:bg-slate-800 transition-colors text-slate-500 dark:text-slate-400 cursor-pointer" data-smoke-ignore disabled>
       <span className="material-symbols-outlined" data-icon="account_circle" style={{fontVariationSettings: "'FILL' 0"}}>account_circle</span>
       </button>
       </div>
