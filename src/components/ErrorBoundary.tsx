@@ -21,16 +21,16 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
     return { hasError: true, error };
   }
 
-  componentDidCatch(error: Error, errorInfo: React.ErrorInfo): void {
-    // eslint-disable-next-line no-console
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+    // Log error for debugging
     console.error('ErrorBoundary caught an error:', error, errorInfo);
   }
 
-  handleReset = (): void => {
+  handleReset = () => {
     this.setState({ hasError: false, error: null });
   };
 
-  render(): ReactNode {
+  render() {
     if (this.state.hasError) {
       if (this.props.fallback) {
         return this.props.fallback;

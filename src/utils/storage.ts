@@ -31,11 +31,7 @@ export function createDebouncedWriter(delayMs = 300) {
       clearTimeout(timeoutId);
     }
     timeoutId = setTimeout(() => {
-      try {
-        writeStorage(data);
-      } catch (err) {
-        console.error('Debounced write failed:', err);
-      }
+      writeStorage(data);
       timeoutId = null;
     }, delayMs);
   };
