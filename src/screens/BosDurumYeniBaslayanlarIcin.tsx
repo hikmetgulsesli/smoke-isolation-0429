@@ -26,12 +26,12 @@ export function BosDurumYeniBaslayanlarIcin({ onAddHabit, error, onClearError }:
       <div className="flex justify-between items-center w-full px-6 py-4 max-w-2xl mx-auto">
       <h1 className="text-xl font-bold tracking-tight text-teal-900 dark:text-teal-50">Alışkanlık Takip</h1>
       <div className="flex items-center space-x-4">
-      <button
+      <button type="button"
         aria-label="Hesap"
         className="p-2 rounded-full hover:bg-teal-100/50 dark:hover:bg-slate-800 transition-colors text-slate-500 dark:text-slate-400 cursor-pointer"
         data-smoke-ignore
       >
-      <span className="material-symbols-outlined" data-icon="account_circle" style={{fontVariationSettings: "'FILL' 0"}}>account_circle</span>
+      <span aria-hidden="true" className="material-symbols-outlined" data-icon="account_circle" style={{fontVariationSettings: "'FILL' 0"}}>account_circle</span>
       </button>
       </div>
       </div>
@@ -55,18 +55,18 @@ export function BosDurumYeniBaslayanlarIcin({ onAddHabit, error, onClearError }:
       {/* BottomNavBar */}
       <nav className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-lg fixed bottom-0 w-full z-50 border-t border-slate-100 dark:border-slate-800 shadow-[0_-4px_6px_-1px_rgba(13,148,136,0.05)] md:hidden">
       <div className="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 py-3 pb-safe">
-      <a aria-label="Bugün - Aktif" className="flex flex-col items-center justify-center text-teal-600 dark:text-teal-400 bg-teal-50/50 dark:bg-teal-900/20 rounded-xl px-4 py-1 tap-highlight-transparent active:opacity-70 group" href="#">
-      <span className="material-symbols-outlined text-[24px] mb-1 group-hover:text-teal-500 transition-all" data-icon="check_circle" style={{fontVariationSettings: "'FILL' 1"}}>check_circle</span>
+      <button type="button" aria-label="Bugün - Aktif" className="flex flex-col items-center justify-center text-teal-600 dark:text-teal-400 bg-teal-50/50 dark:bg-teal-900/20 rounded-xl px-4 py-1 tap-highlight-transparent active:opacity-70 group cursor-pointer" data-smoke-ignore disabled>
+      <span aria-hidden="true" className="material-symbols-outlined text-[24px] mb-1 group-hover:text-teal-500 transition-all" data-icon="check_circle" style={{fontVariationSettings: "'FILL' 1"}}>check_circle</span>
       <span className="text-[11px] font-medium font-inter group-hover:text-teal-500 transition-all">Bugün</span>
-      </a>
-      <a aria-label="İstatistik" className="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-4 py-1 hover:text-teal-500 transition-all tap-highlight-transparent active:opacity-70 group" href="#">
-      <span className="material-symbols-outlined text-[24px] mb-1 group-hover:text-teal-500 transition-all" data-icon="insights" style={{fontVariationSettings: "'FILL' 0"}}>insights</span>
+      </button>
+      <button type="button" aria-label="İstatistik" className="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-4 py-1 hover:text-teal-500 transition-all tap-highlight-transparent active:opacity-70 group cursor-pointer" data-smoke-ignore disabled>
+      <span aria-hidden="true" className="material-symbols-outlined text-[24px] mb-1 group-hover:text-teal-500 transition-all" data-icon="insights" style={{fontVariationSettings: "'FILL' 0"}}>insights</span>
       <span className="text-[11px] font-medium font-inter group-hover:text-teal-500 transition-all">İstatistik</span>
-      </a>
-      <a aria-label="Ayarlar" className="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-4 py-1 hover:text-teal-500 transition-all tap-highlight-transparent active:opacity-70 group" href="#">
-      <span className="material-symbols-outlined text-[24px] mb-1 group-hover:text-teal-500 transition-all" data-icon="settings" style={{fontVariationSettings: "'FILL' 0"}}>settings</span>
+      </button>
+      <button type="button" aria-label="Ayarlar" className="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-4 py-1 hover:text-teal-500 transition-all tap-highlight-transparent active:opacity-70 group cursor-pointer" data-smoke-ignore disabled>
+      <span aria-hidden="true" className="material-symbols-outlined text-[24px] mb-1 group-hover:text-teal-500 transition-all" data-icon="settings" style={{fontVariationSettings: "'FILL' 0"}}>settings</span>
       <span className="text-[11px] font-medium font-inter group-hover:text-teal-500 transition-all">Ayarlar</span>
-      </a>
+      </button>
       </div>
       </nav>
       {/* Spacer for Bottom Nav on Mobile */}
