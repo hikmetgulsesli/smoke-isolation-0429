@@ -11,7 +11,6 @@ import { Habit } from "../types/habit";
 import { HabitInput } from "../components/HabitInput";
 import { Header } from "../components/Header";
 import { HabitList } from "../components/HabitList";
-import { ErrorBanner } from "../components/ErrorBanner";
 
 interface AnaSayfaAliskanlikListesiProps {
   habits: Habit[];
@@ -29,13 +28,6 @@ export function AnaSayfaAliskanlikListesi(props: AnaSayfaAliskanlikListesiProps)
     <>
       <Header />
       <main className="flex-grow w-full max-w-2xl mx-auto px-container-margin py-xl pb-3xl relative z-10">
-        {error && (
-          <ErrorBanner
-            title="Bağlantı Hatası"
-            message={error}
-            onClose={onClearError}
-          />
-        )}
         <section className="mb-xl">
           <HabitInput
             onAdd={onAddHabit}
