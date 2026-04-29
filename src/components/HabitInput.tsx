@@ -1,4 +1,5 @@
 import { useState, useCallback, KeyboardEvent } from 'react';
+import { ErrorBanner } from './ErrorBanner';
 
 interface HabitInputProps {
   onAdd: (name: string) => boolean;
@@ -102,17 +103,18 @@ export function HabitInput({
             onKeyDown={handleKeyDown}
           />
           <button
-            className="bg-primary text-on-primary hover:bg-primary-container hover:text-on-primary-container transition-colors rounded-lg px-lg py-sm mr-1 font-label-md text-label-md h-10 flex items-center justify-center cursor-pointer"
+            className="bg-primary text-on-primary hover:bg-primary-container hover:text-on-primary-container transition-colors rounded-lg px-lg py-sm mr-1 font-label-md text-label-md h-10 flex items-center justify-center cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
             onClick={handleSubmit}
+            disabled={!value.trim()}
           >
             Ekle
           </button>
         </div>
       </div>
       {error && (
-        <p className="mt-sm text-error text-body-sm font-body-sm px-md" role="alert">
-          {error}
-        </p>
+        <div className="mt-sm">
+          <ErrorBanner message={error} onClose={onClearError} />
+        </div>
       )}
       {quickAddOptions && quickAddOptions.length > 0 && (
         <div className="mt-lg flex flex-col gap-md items-center">
