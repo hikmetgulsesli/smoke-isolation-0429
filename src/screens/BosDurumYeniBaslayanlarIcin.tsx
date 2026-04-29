@@ -48,20 +48,21 @@ export function BosDurumYeniBaslayanlarIcin({ onAddHabit, error, onClearError }:
         description="Yukarıdaki alana yazarak ilk alışkanlığınızı ekleyebilirsiniz."
       />
       </main>
+      {/* BottomNavBar */}
       <nav className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-lg fixed bottom-0 w-full z-50 border-t border-slate-100 dark:border-slate-800 shadow-[0_-4px_6px_-1px_rgba(13,148,136,0.05)] md:hidden">
       <div className="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 py-3 pb-safe">
-      <button disabled data-smoke-ignore aria-label="Bugün - Aktif" className="flex flex-col items-center justify-center text-teal-600 dark:text-teal-400 bg-teal-50/50 dark:bg-teal-900/20 rounded-xl px-4 py-1 tap-highlight-transparent active:opacity-70 cursor-not-allowed disabled:opacity-50 group">
+      <a aria-label="Bugün - Aktif" className="flex flex-col items-center justify-center text-teal-600 dark:text-teal-400 bg-teal-50/50 dark:bg-teal-900/20 rounded-xl px-4 py-1 tap-highlight-transparent active:opacity-70 group" href="#">
       <span className="material-symbols-outlined text-[24px] mb-1 group-hover:text-teal-500 transition-all" data-icon="check_circle" style={{fontVariationSettings: "'FILL' 1"}}>check_circle</span>
       <span className="text-[11px] font-medium font-inter group-hover:text-teal-500 transition-all">Bugün</span>
-      </button>
-      <button disabled data-smoke-ignore aria-label="İstatistik" className="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-4 py-1 hover:text-teal-500 transition-all tap-highlight-transparent active:opacity-70 cursor-not-allowed disabled:opacity-50 group">
+      </a>
+      <a aria-label="İstatistik" className="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-4 py-1 hover:text-teal-500 transition-all tap-highlight-transparent active:opacity-70 group" href="#">
       <span className="material-symbols-outlined text-[24px] mb-1 group-hover:text-teal-500 transition-all" data-icon="insights" style={{fontVariationSettings: "'FILL' 0"}}>insights</span>
       <span className="text-[11px] font-medium font-inter group-hover:text-teal-500 transition-all">İstatistik</span>
-      </button>
-      <button disabled data-smoke-ignore aria-label="Ayarlar" className="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-4 py-1 hover:text-teal-500 transition-all tap-highlight-transparent active:opacity-70 cursor-not-allowed disabled:opacity-50 group">
+      </a>
+      <a aria-label="Ayarlar" className="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-4 py-1 hover:text-teal-500 transition-all tap-highlight-transparent active:opacity-70 group" href="#">
       <span className="material-symbols-outlined text-[24px] mb-1 group-hover:text-teal-500 transition-all" data-icon="settings" style={{fontVariationSettings: "'FILL' 0"}}>settings</span>
       <span className="text-[11px] font-medium font-inter group-hover:text-teal-500 transition-all">Ayarlar</span>
-      </button>
+      </a>
       </div>
       </nav>
       {/* Spacer for Bottom Nav on Mobile */}
