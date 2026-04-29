@@ -8,12 +8,11 @@ export default function App() {
   const { habits, error, addHabit, toggleHabit, deleteHabit, clearError } = useHabits();
 
   const hasHabits = habits.length > 0;
-  const isStorageError = error?.includes('kaydedilemedi') ?? false;
 
   return (
     <ErrorBoundary>
       <div data-setfarm-root="us-005" className="min-h-screen bg-background text-on-background flex flex-col font-body-md antialiased selection:bg-primary-container selection:text-on-primary-container">
-        {isStorageError ? (
+        {error && hasHabits ? (
           <HataDurumuKayitSorunu
             habits={habits}
             onAddHabit={addHabit}
