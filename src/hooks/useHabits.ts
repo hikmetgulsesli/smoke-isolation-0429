@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Habit, AppStorage } from '../types/habit';
-import { readStorage, writeStorage, createDebouncedWriter } from '../utils/storage';
+import { readStorage, writeStorage, StorageError } from '../utils/storage';
 import { validateHabitName } from '../utils/validation';
 import { getToday } from '../utils/dateUtils';
 
@@ -23,9 +23,6 @@ function generateId(): string {
 export function useHabits(): UseHabitsReturn {
   const [habits, setHabits] = useState<Habit[]>([]);
   const [error, setError] = useState<string | null>(null);
-  const debouncedWriterRef = useRef(createDebouncedWriter(300, (err) => {
-    setError(err.message);
-  }));
 
   // Load from localStorage on mount
   useEffect(() => {
@@ -41,7 +38,18 @@ export function useHabits(): UseHabitsReturn {
       version: 1,
       habits,
     };
-    debouncedWriterRef.current(payload);
+    const timeoutId = setTimeout(() => {
+      try {
+        writeStorage(payload);
+      } catch (err) {
+        if (err instanceof StorageError) {
+          setError(err.message);
+        } else {
+          setError('Kaydetme hatası oluştu.');
+        }
+      }
+    }, 300);
+    return () => clearTimeout(timeoutId);
   }, [habits]);
 
   const addHabit = useCallback((name: string): boolean => {
