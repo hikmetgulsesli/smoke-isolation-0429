@@ -23,7 +23,9 @@ function generateId(): string {
 export function useHabits(): UseHabitsReturn {
   const [habits, setHabits] = useState<Habit[]>([]);
   const [error, setError] = useState<string | null>(null);
-  const debouncedWriterRef = useRef(createDebouncedWriter(300));
+  const debouncedWriterRef = useRef(createDebouncedWriter(300, (err) => {
+    setError(err.message);
+  }));
 
   // Load from localStorage on mount
   useEffect(() => {

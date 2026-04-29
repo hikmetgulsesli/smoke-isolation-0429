@@ -23,7 +23,7 @@ export function writeStorage(data: AppStorage): void {
   }
 }
 
-export function createDebouncedWriter(delayMs = 300) {
+export function createDebouncedWriter(delayMs = 300, onError?: (error: Error) => void) {
   let timeoutId: ReturnType<typeof setTimeout> | null = null;
 
   return function debouncedWrite(data: AppStorage): void {
@@ -31,7 +31,12 @@ export function createDebouncedWriter(delayMs = 300) {
       clearTimeout(timeoutId);
     }
     timeoutId = setTimeout(() => {
-      writeStorage(data);
+      try {
+        writeStorage(data);
+      } catch (err) {
+        const error = err instanceof Error ? err : new StorageError('Veriler kaydedilemedi. Lütfen tarayıcınızda yer açın veya sayfayı yenileyin.');
+        onError?.(error);
+      }
       timeoutId = null;
     }, delayMs);
   };

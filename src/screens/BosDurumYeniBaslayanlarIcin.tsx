@@ -9,6 +9,7 @@
 
 import { HabitInput } from "../components/HabitInput";
 import { EmptyState } from "../components/EmptyState";
+import { ErrorBanner } from "../components/ErrorBanner";
 
 interface BosDurumYeniBaslayanlarIcinProps {
   onAddHabit: (name: string) => boolean;
@@ -34,6 +35,13 @@ export function BosDurumYeniBaslayanlarIcin({ onAddHabit, error, onClearError }:
       </header>
       {/* Main Content Canvas */}
       <main className="flex-1 w-full max-w-2xl mx-auto px-container-margin py-xl flex flex-col gap-2xl relative pb-3xl">
+      {error && (
+        <ErrorBanner
+          title="Bağlantı Hatası"
+          message={error}
+          onClose={onClearError}
+        />
+      )}
       {/* Input Section */}
       <HabitInput
         onAdd={onAddHabit}
