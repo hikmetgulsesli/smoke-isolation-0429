@@ -3,6 +3,10 @@ export interface ValidationResult {
   error?: string;
 }
 
+const MAX_NAME_LENGTH = 100;
+
+const ALLOWED_PATTERN = /^[a-zA-ZÇçĞğİıÖöŞşÜü0-9\s\-_.!,?()]+$/;
+
 export function validateHabitName(name: string): ValidationResult {
   const trimmed = name.trim();
 
@@ -10,12 +14,11 @@ export function validateHabitName(name: string): ValidationResult {
     return { valid: false, error: 'Alışkanlık adı boş olamaz' };
   }
 
-  if (trimmed.length > 100) {
-    return { valid: false, error: 'Alışkanlık adı 100 karakterden uzun olamaz' };
+  if (trimmed.length > MAX_NAME_LENGTH) {
+    return { valid: false, error: `Alışkanlık adı ${MAX_NAME_LENGTH} karakterden uzun olamaz` };
   }
 
-  const allowedPattern = /^[a-zA-ZÇçĞğİıÖöŞşÜüÜü0-9\s\-_.!,?()]+$/;
-  if (!allowedPattern.test(trimmed)) {
+  if (!ALLOWED_PATTERN.test(trimmed)) {
     return { valid: false, error: 'Alışkanlık adı geçersiz karakterler içeriyor' };
   }
 

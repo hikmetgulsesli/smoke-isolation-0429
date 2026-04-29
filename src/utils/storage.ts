@@ -54,7 +54,7 @@ export function migrateStorage(data: unknown): AppStorage | null {
     }
     const h = item as Record<string, unknown>;
     return {
-      id: typeof h.id === 'string' ? h.id : crypto.randomUUID?.() ?? `${Date.now()}-${Math.random()}`,
+      id: typeof h.id === 'string' ? h.id : (typeof globalThis !== 'undefined' && globalThis.crypto?.randomUUID) ? globalThis.crypto.randomUUID() : `${Date.now()}-${Math.random()}`,
       name: typeof h.name === 'string' ? h.name : 'Bilinmeyen Alışkanlık',
       createdAt: typeof h.createdAt === 'string' ? h.createdAt : new Date().toISOString(),
       completedDates: Array.isArray(h.completedDates)
