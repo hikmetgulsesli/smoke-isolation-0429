@@ -101,6 +101,7 @@ export function HabitInput({
             {quickAddOptions.map((option) => (
               <button
                 key={option}
+                aria-label={option}
                 className="bg-surface-container hover:bg-surface-container-high transition-colors text-on-surface-variant px-md py-sm rounded-full font-body-sm text-body-sm border border-surface-variant/50 flex items-center gap-2 cursor-pointer"
                 onClick={() => handleQuickAdd(option)}
               >
