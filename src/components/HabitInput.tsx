@@ -103,9 +103,8 @@ export function HabitInput({
             onKeyDown={handleKeyDown}
           />
           <button
-            className="bg-primary text-on-primary hover:bg-primary-container hover:text-on-primary-container transition-colors rounded-lg px-lg py-sm mr-1 font-label-md text-label-md h-10 flex items-center justify-center cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+            className="bg-primary text-on-primary hover:bg-primary-container hover:text-on-primary-container transition-colors rounded-lg px-lg py-sm mr-1 font-label-md text-label-md h-10 flex items-center justify-center cursor-pointer"
             onClick={handleSubmit}
-            disabled={!value.trim()}
           >
             Ekle
           </button>
