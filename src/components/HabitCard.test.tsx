@@ -15,8 +15,9 @@ const baseHabit: Habit = {
 };
 
 function renderCard(habit: Habit) {
+  const today = new Date().toISOString().split('T')[0];
   return render(
-    <HabitCard habit={habit} onToggle={mockToggle} onDelete={mockDelete} />
+    <HabitCard habit={habit} today={today} onToggle={mockToggle} onDelete={mockDelete} />
   );
 }
 

@@ -1,14 +1,13 @@
 import { Habit } from '../types/habit';
-import { getToday } from '../utils/dateUtils';
 
 interface HabitCardProps {
   habit: Habit;
+  today: string;
   onToggle: (id: string) => void;
   onDelete: (id: string) => void;
 }
 
-export function HabitCard({ habit, onToggle, onDelete }: HabitCardProps) {
-  const today = getToday();
+export function HabitCard({ habit, today, onToggle, onDelete }: HabitCardProps) {
   const isCompleted = habit.completedDates.includes(today);
 
   return (
@@ -38,6 +37,7 @@ export function HabitCard({ habit, onToggle, onDelete }: HabitCardProps) {
       </button>
       <div className="flex-grow min-w-0">
         <p
+          title={habit.name}
           className={`font-body-lg text-body-lg truncate ${
             isCompleted
               ? 'text-outline line-through opacity-70'
@@ -49,7 +49,7 @@ export function HabitCard({ habit, onToggle, onDelete }: HabitCardProps) {
       </div>
       <button
         aria-label="Sil"
-        className="flex-shrink-0 text-outline hover:text-error transition-colors p-2 rounded-full hover:bg-error-container opacity-0 group-hover:opacity-100 focus:opacity-100 cursor-pointer"
+        className="flex-shrink-0 text-outline hover:text-error transition-colors p-2 rounded-full hover:bg-error-container opacity-0 md:group-hover:opacity-100 focus:opacity-100 cursor-pointer"
         onClick={() => onDelete(habit.id)}
       >
         <span

@@ -1,5 +1,6 @@
 import { Habit } from '../types/habit';
 import { HabitCard } from './HabitCard';
+import { getToday } from '../utils/dateUtils';
 
 interface HabitListProps {
   habits: Habit[];
@@ -12,6 +13,8 @@ export function HabitList({ habits, onToggleHabit, onDeleteHabit }: HabitListPro
     return null;
   }
 
+  const today = getToday();
+
   return (
     <section className="space-y-md" aria-label="Alışkanlık listesi">
       {habits.map((habit, index) => (
@@ -19,11 +22,12 @@ export function HabitList({ habits, onToggleHabit, onDeleteHabit }: HabitListPro
           key={habit.id}
           className="animate-fade-in"
           style={{
-            animationDelay: `${index * 50}ms`,
+            animationDelay: `${Math.min(index * 50, 1000)}ms`,
           }}
         >
           <HabitCard
             habit={habit}
+            today={today}
             onToggle={onToggleHabit}
             onDelete={onDeleteHabit}
           />
