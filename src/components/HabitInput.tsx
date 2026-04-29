@@ -9,6 +9,22 @@ interface HabitInputProps {
   onQuickAdd?: (name: string) => void;
 }
 
+// Move iconMap outside the function to avoid recreation on each render
+const iconMap: Record<string, string> = {
+  'Su İç': 'water_drop',
+  'Kitap Oku': 'menu_book',
+  'Yürüyüş Yap': 'directions_walk',
+};
+
+function getQuickAddIcon(name: string): React.ReactNode {
+  const icon = iconMap[name] ?? 'add_circle';
+  return (
+    <span className="material-symbols-outlined text-[18px]" data-icon={icon}>
+      {icon}
+    </span>
+  );
+}
+
 export function HabitInput({
   onAdd,
   error,
@@ -59,6 +75,12 @@ export function HabitInput({
     [onAdd, onQuickAdd]
   );
 
+  // Stable callback for quick add buttons
+  const quickAddClickHandler = useCallback(
+    (name: string) => () => handleQuickAdd(name),
+    [handleQuickAdd]
+  );
+
   return (
     <section className="w-full">
       <div className="relative bg-surface-container-lowest rounded-xl shadow-[0_4px_12px_rgba(0,104,95,0.03)] border border-surface-variant p-1">
@@ -103,7 +125,7 @@ export function HabitInput({
                 key={option}
                 aria-label={option}
                 className="bg-surface-container hover:bg-surface-container-high transition-colors text-on-surface-variant px-md py-sm rounded-full font-body-sm text-body-sm border border-surface-variant/50 flex items-center gap-2 cursor-pointer"
-                onClick={() => handleQuickAdd(option)}
+                onClick={quickAddClickHandler(option)}
               >
                 {getQuickAddIcon(option)}
                 {option}
@@ -113,19 +135,5 @@ export function HabitInput({
         </div>
       )}
     </section>
-  );
-}
-
-function getQuickAddIcon(name: string): React.ReactNode {
-  const iconMap: Record<string, string> = {
-    'Su İç': 'water_drop',
-    'Kitap Oku': 'menu_book',
-    'Yürüyüş Yap': 'directions_walk',
-  };
-  const icon = iconMap[name] ?? 'add_circle';
-  return (
-    <span className="material-symbols-outlined text-[18px]" data-icon={icon}>
-      {icon}
-    </span>
   );
 }

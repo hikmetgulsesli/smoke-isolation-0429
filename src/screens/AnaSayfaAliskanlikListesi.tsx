@@ -10,6 +10,7 @@
 import { useState } from "react";
 import { Habit } from "../types/habit";
 import { HabitInput } from "../components/HabitInput";
+import { getToday } from "../utils/dateUtils";
 
 interface AnaSayfaAliskanlikListesiProps {
   habits: Habit[];
@@ -20,12 +21,17 @@ interface AnaSayfaAliskanlikListesiProps {
   onClearError?: () => void;
 }
 
-function getToday(): string {
-  return new Date().toISOString().split('T')[0];
-}
+// Use shared date utility instead of duplicating getToday()
 
 export function AnaSayfaAliskanlikListesi(props: AnaSayfaAliskanlikListesiProps) {
   const { habits, onAddHabit, onToggleHabit, onDeleteHabit, error, onClearError } = props;
+
+  // Call getToday() once outside the map loop to avoid creating new Date objects per habit
+  const today = getToday();
+
+  // Stable click handlers defined outside the map
+  const toggleHandler = (id: string) => () => onToggleHabit(id);
+  const deleteHandler = (id: string) => () => onDeleteHabit(id);
 
   return (
     <>
@@ -54,7 +60,7 @@ export function AnaSayfaAliskanlikListesi(props: AnaSayfaAliskanlikListesiProps)
       {/* List Section */}
       <section className="space-y-md">
         {habits.map((habit) => {
-          const isCompleted = habit.completedDates.includes(getToday());
+          const isCompleted = habit.completedDates.includes(today);
           return (
             <div key={habit.id} className="group flex items-center bg-surface-container-lowest rounded-xl p-md border border-outline-variant shadow-[0_4px_12px_-4px_rgba(0,104,95,0.05)] transition-all hover:shadow-[0_8px_16px_-6px_rgba(0,104,95,0.1)] relative overflow-hidden">
               {isCompleted && <div className="absolute left-0 top-0 bottom-0 w-1 bg-primary"></div>}
@@ -65,7 +71,7 @@ export function AnaSayfaAliskanlikListesi(props: AnaSayfaAliskanlikListesiProps)
                     ? 'bg-primary text-on-primary shadow-sm'
                     : 'border-2 border-outline hover:border-primary text-transparent'
                 }`}
-                onClick={() => onToggleHabit(habit.id)}
+                onClick={toggleHandler(habit.id)}
               >
                 <span className="material-symbols-outlined text-[16px]" data-icon="check" style={{ fontVariationSettings: "'FILL' 1" }}>check</span>
               </button>
@@ -77,7 +83,7 @@ export function AnaSayfaAliskanlikListesi(props: AnaSayfaAliskanlikListesiProps)
               <button
                 aria-label="Sil"
                 className="flex-shrink-0 text-outline hover:text-error transition-colors p-2 rounded-full hover:bg-error-container opacity-0 group-hover:opacity-100 focus:opacity-100 cursor-pointer"
-                onClick={() => onDeleteHabit(habit.id)}
+                onClick={deleteHandler(habit.id)}
               >
                 <span className="material-symbols-outlined text-[20px]" data-icon="delete">delete</span>
               </button>

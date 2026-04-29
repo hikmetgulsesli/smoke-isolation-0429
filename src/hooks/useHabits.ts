@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { Habit, AppStorage } from '../types/habit';
 import { readStorage, writeStorage, createDebouncedWriter } from '../utils/storage';
 import { validateHabitName } from '../utils/validation';
+import { getToday } from '../utils/dateUtils';
 
 export interface UseHabitsReturn {
   habits: Habit[];
@@ -17,10 +18,6 @@ function generateId(): string {
     return crypto.randomUUID();
   }
   return `${Date.now()}-${Math.random().toString(36).slice(2, 11)}`;
-}
-
-function getToday(): string {
-  return new Date().toISOString().split('T')[0];
 }
 
 export function useHabits(): UseHabitsReturn {
@@ -103,8 +100,9 @@ export function useHabits(): UseHabitsReturn {
 
 function calculateStreak(completedDates: string[]): number {
   if (completedDates.length === 0) return 0;
-  const sorted = [...completedDates].sort();
-  let streak = 0;
+  // Fix: remove duplicates with Set before calculating streak
+  const uniqueDates = [...new Set(completedDates)];
+  const sorted = [...uniqueDates].sort();
   const today = getToday();
   const yesterday = new Date();
   yesterday.setDate(yesterday.getDate() - 1);
@@ -115,6 +113,7 @@ function calculateStreak(completedDates: string[]): number {
     return 0;
   }
 
+  let streak = 0;
   let checkDate = new Date(lastCompleted);
   for (let i = sorted.length - 1; i >= 0; i--) {
     const dateStr = sorted[i];
