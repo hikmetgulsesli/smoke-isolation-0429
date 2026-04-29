@@ -9,7 +9,7 @@ export function Header({ title = 'Alışkanlık Takip' }: HeaderProps) {
         <h1 className="text-xl font-bold tracking-tight text-teal-900 dark:text-teal-50 font-inter antialiased">
           {title}
         </h1>
-        <button type="button"
+        <button
           aria-label="Hesap"
           className="text-teal-600 dark:text-teal-400 hover:bg-teal-100/50 dark:hover:bg-slate-800 transition-colors active:scale-95 duration-200 p-2 rounded-full flex items-center justify-center cursor-pointer"
           data-smoke-ignore

@@ -33,10 +33,9 @@ export function createDebouncedWriter(delayMs = 300, onError?: (message: string)
     timeoutId = setTimeout(() => {
       try {
         writeStorage(data);
-      } catch (err: unknown) {
-        if (onError) {
-          const message = err instanceof StorageError ? err.message : 'Veriler kaydedilemedi. Lütfen tarayıcınızda yer açın.';
-          onError(message);
+      } catch (err) {
+        if (err instanceof StorageError && onError) {
+          onError(err.message);
         }
       }
       timeoutId = null;
