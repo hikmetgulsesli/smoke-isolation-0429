@@ -1,4 +1,4 @@
-import { useState, useCallback, KeyboardEvent } from 'react';
+import { useState, useCallback, KeyboardEvent, useRef } from 'react';
 import { ErrorBanner } from './ErrorBanner';
 
 interface HabitInputProps {
@@ -35,10 +35,14 @@ export function HabitInput({
   onQuickAdd,
 }: HabitInputProps) {
   const [value, setValue] = useState('');
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const handleSubmit = useCallback(() => {
     const trimmed = value.trim();
-    if (!trimmed) return;
+    if (!trimmed) {
+      inputRef.current?.focus();
+      return;
+    }
     const success = onAdd(trimmed);
     if (success) {
       setValue('');
@@ -94,6 +98,7 @@ export function HabitInput({
             add
           </span>
           <input
+            ref={inputRef}
             aria-label="Yeni alışkanlık ekle"
             className="w-full bg-transparent border-none text-body-md font-body-md text-on-surface placeholder:text-outline-variant focus:ring-0 px-md py-sm h-12"
             placeholder={placeholder}
@@ -102,10 +107,9 @@ export function HabitInput({
             onChange={handleChange}
             onKeyDown={handleKeyDown}
           />
-          <button
-            className="bg-primary text-on-primary hover:bg-primary-container hover:text-on-primary-container transition-colors rounded-lg px-lg py-sm mr-1 font-label-md text-label-md h-10 flex items-center justify-center cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+          <button type="button"
+            className="bg-primary text-on-primary hover:bg-primary-container hover:text-on-primary-container transition-colors rounded-lg px-lg py-sm mr-1 font-label-md text-label-md h-10 flex items-center justify-center cursor-pointer"
             onClick={handleSubmit}
-            disabled={!value.trim()}
           >
             Ekle
           </button>
