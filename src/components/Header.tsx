@@ -10,6 +10,7 @@ export function Header({ title = 'Alışkanlık Takip' }: HeaderProps) {
           {title}
         </h1>
         <button
+          data-smoke-ignore
           aria-label="Hesap"
           className="text-teal-600 dark:text-teal-400 hover:bg-teal-100/50 dark:hover:bg-slate-800 transition-colors active:scale-95 duration-200 p-2 rounded-full flex items-center justify-center cursor-pointer"
         >
